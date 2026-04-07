@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Solutions - Molecules Techinfra</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a5276;
+            --secondary: #e74c3c;
+            --accent: #f39c12;
+            --ai-primary: #00b4d8;
+            --ai-secondary: #0077b6;
+            --ai-accent: #90e0ef;
+            --ai-dark: #03045e;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--ai-primary), var(--ai-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            color: white;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--ai-primary);
+        }
+
+        h3 {
+            color: var(--ai-accent);
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--ai-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+        }
+
+        .btn:hover {
+            background: var(--ai-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.7);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(3, 4, 94, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .logo span {
+            color: var(--ai-primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--ai-accent);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ai-accent);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Hero Section */
+        .ai-hero {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 180, 216, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(144, 224, 239, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 119, 182, 0.1) 0%, transparent 50%);
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(0,180,216,0.05)"/></svg>') no-repeat bottom right,
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L0,0 Z" fill="rgba(144,224,239,0.05)"/></svg>') no-repeat top left;
+            background-size: 40% auto;
+        }
+
+        .ai-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(144, 224, 239, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 80%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 70px;
+            height: 70px;
+            top: 80%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        /* AI Applications Section */
+        .ai-applications {
+            background: rgba(15, 32, 39, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .application-card {
+            background: rgba(32, 58, 67, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .application-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--ai-primary), var(--ai-accent));
+        }
+
+        .application-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.3);
+        }
+
+        .app-icon {
+            font-size: 3rem;
+            color: var(--ai-primary);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+        }
+
+        .application-card h3 {
+            color: var(--ai-accent);
+            margin-bottom: 15px;
+        }
+
+        /* Benefits Section */
+        .ai-benefits {
+            background: 
+                radial-gradient(circle at 70% 30%, rgba(0, 119, 182, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(144, 224, 239, 0.1) 0%, transparent 50%);
+        }
+
+        .benefits-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .benefits-content {
+            flex: 1;
+        }
+
+        .benefits-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .neural-network {
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
+
+        .node {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--ai-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--ai-primary);
+        }
+
+        .connection {
+            position: absolute;
+            background: rgba(0, 180, 216, 0.3);
+            transform-origin: 0 0;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            color: #e0e0e0;
+        }
+
+        .benefits-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--ai-primary);
+            font-weight: bold;
+        }
+
+        /* Case Studies Section */
+        .case-studies {
+            background: rgba(15, 32, 39, 0.7);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .case-card {
+            background: rgba(32, 58, 67, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .case-header {
+            padding: 20px;
+            background: rgba(0, 180, 216, 0.1);
+            border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+        }
+
+        .case-content {
+            padding: 20px;
+        }
+
+        .case-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--ai-primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        /* CTA Section */
+        .ai-cta {
+            text-align: center;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(0, 180, 216, 0.2) 0%, transparent 70%);
+            padding: 100px 0;
+        }
+
+        .ai-cta h2 {
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(3, 4, 94, 0.9);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--ai-primary);
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--ai-accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--ai-primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .benefits-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .ai-hero {
+                padding: 150px 0 80px;
+            }
+            
+            .ai-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Molecules <span>Techinfra</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#specialization">Specialization</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="ai-hero">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="container">
+            <h1>AI Solutions for Industry</h1>
+            <p>Transforming steel plant operations with cutting-edge Artificial Intelligence and Machine Learning technologies</p>
+            <a href="#applications" class="btn">Explore AI Applications</a>
+        </div>
+    </section>
+
+    <!-- AI Applications Section -->
+    <section id="applications" class="ai-applications">
+        <div class="container">
+            <h2>AI Applications in Steel Industry</h2>
+            <div class="applications-grid">
+                <div class="application-card">
+                    <div class="app-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Predictive Maintenance</h3>
+                    <p>AI algorithms analyze equipment sensor data to predict failures before they occur, reducing downtime and maintenance costs.</p>
+                </div>
+                <div class="application-card">
+                    <div class="app-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Quality Control</h3>
+                    <p>Computer vision systems inspect products in real-time, detecting defects with higher accuracy than human inspectors.</p>
+                </div>
+                <div class="application-card">
+                    <div class="app-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Process Optimization</h3>
+                    <p>Machine learning models optimize production parameters to maximize efficiency and reduce energy consumption.</p>
+                </div>
+                <div class="application-card">
+                    <div class="app-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Autonomous Operations</h3>
+                    <p>AI-powered systems enable autonomous control of various plant operations, improving safety and consistency.</p>
+                </div>
+                <div class="application-card">
+                    <div class="app-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3>Supply Chain Optimization</h3>
+                    <p>AI algorithms forecast demand, optimize inventory, and streamline logistics across the supply chain.</p>
+                </div>
+                <div class="application-card">
+                    <div class="app-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safety Monitoring</h3>
+                    <p>AI systems monitor workplace environments to detect safety hazards and prevent accidents in real-time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="ai-benefits">
+        <div class="container">
+            <h2>Benefits of AI Implementation</h2>
+            <div class="benefits-container">
+                <div class="benefits-content">
+                    <p>Integrating AI into steel plant operations delivers significant competitive advantages and operational improvements:</p>
+                    <ul class="benefits-list">
+                        <li><strong>Increased Efficiency:</strong> AI optimizes processes to reduce waste and improve throughput</li>
+                        <li><strong>Cost Reduction:</strong> Predictive maintenance and energy optimization lower operational expenses</li>
+                        <li><strong>Quality Improvement:</strong> Consistent, AI-driven quality control enhances product reliability</li>
+                        <li><strong>Enhanced Safety:</strong> AI monitoring systems reduce workplace accidents and hazards</li>
+                        <li><strong>Data-Driven Decisions:</strong> Advanced analytics provide insights for strategic planning</li>
+                        <li><strong>Competitive Advantage:</strong> Early AI adopters gain significant market positioning benefits</li>
+                    </ul>
+                    <a href="#case-studies" class="btn" style="margin-top: 20px;">View Case Studies</a>
+                </div>
+                <div class="benefits-visual">
+                    <div class="neural-network" id="neuralNetwork">
+                        <!-- Neural network visualization will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="case-studies">
+        <div class="container">
+            <h2>AI Implementation Case Studies</h2>
+            <div class="case-grid">
+                <div class="case-card">
+                    <div class="case-header">
+                        <h3>Predictive Maintenance System</h3>
+                        <p>SAIL-ISP Blast Furnace Operations</p>
+                    </div>
+                    <div class="case-content">
+                        <p>Implementation of AI-driven predictive maintenance for critical blast furnace components, reducing unplanned downtime by 42% and maintenance costs by 28%.</p>
+                        <div class="case-stats">
+                            <div class="stat">
+                                <div class="stat-value">42%</div>
+                                <div class="stat-label">Downtime Reduction</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">28%</div>
+                                <div class="stat-label">Cost Savings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <h3>Quality Inspection Automation</h3>
+                        <p>Hot Rolling Mill Operations</p>
+                    </div>
+                    <div class="case-content">
+                        <p>Computer vision system for real-time detection of surface defects in steel sheets, improving detection accuracy from 85% to 98% and reducing manual inspection labor.</p>
+                        <div class="case-stats">
+                            <div class="stat">
+                                <div class="stat-value">98%</div>
+                                <div class="stat-label">Detection Accuracy</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">60%</div>
+                                <div class="stat-label">Labor Reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <h3>Energy Optimization</h3>
+                        <p>Plant-Wide Implementation</p>
+                    </div>
+                    <div class="case-content">
+                        <p>AI system optimizing energy consumption across multiple plant operations, achieving 15% reduction in energy costs while maintaining production output.</p>
+                        <div class="case-stats">
+                            <div class="stat">
+                                <div class="stat-value">15%</div>
+                                <div class="stat-label">Energy Savings</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">100%</div>
+                                <div class="stat-label">Output Maintained</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="ai-cta">
+        <div class="container">
+            <h2>Ready to Transform Your Operations with AI?</h2>
+            <p>Contact our AI specialists to discuss how we can implement cutting-edge solutions in your facility</p>
+            <a href="index.html#contact" class="btn">Get Started with AI</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Molecules Techinfra</h3>
+                    <p>Specialists in steel plant infrastructure with expertise in civil, mechanical, electrical, AI and automation for SAIL-ISP projects.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="index.html#specialization">Specialization</a></li>
+                        <li><a href="index.html#projects">Projects</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Civil Engineering</a></li>
+                        <li><a href="#">Mechanical Systems</a></li>
+                        <li><a href="#">Electrical Infrastructure</a></li>
+                        <li><a href="ai-solutions.html">AI Solutions</a></li>
+                        <li><a href="#">Automation</a></li>
+                        <li><a href="#">Maintenance Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <p>Your Company Address, City, State, PIN Code</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <p>+91 XXXXX XXXXX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p>info@moleculestechinfra.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Molecules Techinfra Pvt Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navMenu = document.querySelector('nav ul');
+            
+            mobileMenu.addEventListener('click', function() {
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        navMenu.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Create neural network visualization
+            createNeuralNetwork();
+            
+            function createNeuralNetwork() {
+                const container = document.getElementById('neuralNetwork');
+                const layers = [4, 6, 5, 4]; // Number of nodes in each layer
+                const width = container.offsetWidth;
+                const height = container.offsetHeight;
+                
+                // Clear container
+                container.innerHTML = '';
+                
+                // Create nodes
+                for (let layer = 0; layer < layers.length; layer++) {
+                    for (let i = 0; i < layers[layer]; i++) {
+                        const node = document.createElement('div');
+                        node.className = 'node';
+                        
+                        // Position nodes evenly
+                        const x = (layer / (layers.length - 1)) * width;
+                        const y = (i / (layers[layer] - 1)) * height;
+                        
+                        node.style.left = x + 'px';
+                        node.style.top = y + 'px';
+                        
+                        // Add animation delay for visual effect
+                        node.style.animationDelay = (layer * 0.5 + i * 0.1) + 's';
+                        
+                        container.appendChild(node);
+                    }
+                }
+                
+                // Create connections between layers
+                for (let layer = 0; layer < layers.length - 1; layer++) {
+                    for (let i = 0; i < layers[layer]; i++) {
+                        for (let j = 0; j < layers[layer + 1]; j++) {
+                            const connection = document.createElement('div');
+                            connection.className = 'connection';
+                            
+                            // Calculate positions
+                            const x1 = (layer / (layers.length - 1)) * width;
+                            const y1 = (i / (layers[layer] - 1)) * height;
+                            const x2 = ((layer + 1) / (layers.length - 1)) * width;
+                            const y2 = (j / (layers[layer + 1] - 1)) * height;
+                            
+                            // Calculate length and angle
+                            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                            
+                            connection.style.width = length + 'px';
+                            connection.style.left = x1 + 'px';
+                            connection.style.top = y1 + 'px';
+                            connection.style.transform = `rotate(${angle}deg)`;
+                            
+                            // Add animation
+                            connection.style.animation = `pulse 2s ${(layer * 0.3 + i * 0.1 + j * 0.05)}s infinite alternate`;
+                            
+                            container.appendChild(connection);
+                        }
+                    }
+                }
+                
+                // Add CSS for pulse animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes pulse {
+                        0% { opacity: 0.1; }
+                        100% { opacity: 0.5; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Recreate neural network on resize
+            window.addEventListener('resize', createNeuralNetwork);
+        });
+    </script>
+</body>
+</html>
